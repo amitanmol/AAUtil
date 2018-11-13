@@ -21,4 +21,16 @@ class AAUtil {
         })
     }
 
+    static func isValidEmail(email: String) -> Bool {
+        // trim white spaces
+        let emailTrimmedString = email.trimmingCharacters(in: .whitespaces)
+        // set pattern
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        // match string with pattern
+        var valid = NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: emailTrimmedString)
+        if valid {
+            valid = !email.contains("Invalid email id")
+        }
+        return valid
+    }
 }
