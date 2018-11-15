@@ -10,7 +10,7 @@ import UIKit
 
 class AAUtil {
     
-    static func showAlert(title: String, message: String, controller: UIViewController) -> Void {
+    class func showAlert(title: String, message: String, controller: UIViewController) -> Void {
         // create the alert
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
@@ -21,7 +21,7 @@ class AAUtil {
         })
     }
 
-    static func isValidEmail(email: String) -> Bool {
+    class func isValidEmail(email: String) -> Bool {
         // trim white spaces
         let emailTrimmedString = email.trimmingCharacters(in: .whitespaces)
         // set pattern
@@ -32,5 +32,39 @@ class AAUtil {
             valid = !email.contains("Invalid email id")
         }
         return valid
+    }
+    
+    class func isValidPhone(number: String) -> Bool {
+        // trim white spaces
+        let phoneNumberTrimmedString = number.trimmingCharacters(in: .whitespaces)
+        // set pattern
+        let phoneNumberRegex = "^\\d{3}-\\d{3}-\\d{4}$"
+        // match string with pattern
+        var valid = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex).evaluate(with: phoneNumberTrimmedString)
+        if valid {
+            valid = !number.contains("Invalid phone number")
+        }
+        return valid
+    }
+    
+    class func printLog(message: String) -> Void {
+        #if DEBUG
+        print("\(message)")
+        #endif
+    }
+    
+    class func pathOfAppDocumentDirectory() -> String? {
+        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentDirectoryPath: String = allPaths[0]
+        return documentDirectoryPath
+    }
+    
+    class func deviceToken(from tokenData: Data?) -> String? {
+        var token = "\(String(describing: tokenData))"
+        //Format token as you need:
+        token = token.replacingOccurrences(of: " ", with: "")
+        token = token.replacingOccurrences(of: ">", with: "")
+        token = token.replacingOccurrences(of: "<", with: "")
+        return token
     }
 }
