@@ -34,17 +34,49 @@ class AAUtil {
         return valid
     }
     
+    /*
+     ^     #Match the beginning of the string
+     [6-9] #Match a 6, 7, 8 or 9
+     \\d   #Match a digit (0-9 and anything else that is a "digit" in the regex engine)
+     {9}   #Repeat the previous "\d" 9 times (9 digits)
+     $     #Match the end of the string
+     */
     class func isValidPhone(number: String) -> Bool {
         // trim white spaces
         let phoneNumberTrimmedString = number.trimmingCharacters(in: .whitespaces)
         // set pattern
-        let phoneNumberRegex = "^\\d{3}-\\d{3}-\\d{4}$"
+        let phoneNumberRegex = "^[6-9]\\d{9}$"
         // match string with pattern
         var valid = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex).evaluate(with: phoneNumberTrimmedString)
         if valid {
             valid = !number.contains("Invalid phone number")
         }
         return valid
+    }
+    
+    // password validation // https://stackoverflow.com/questions/27998409/email-phone-validation-in-swift
+    class func isValidPassword(password: String) -> Bool {
+        
+        var returnValue = true
+        let mobileRegEx =  "[A-Za-z0-9.-_@#$!%&*]{5,15}$"  // "^[A-Z0-9a-z.-_]{5}$"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: mobileRegEx)
+            let nsString = password as NSString
+            let results = regex.matches(in: password, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0
+            {
+                returnValue = false
+            }
+            
+        }
+        catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return  returnValue
     }
     
     class func printLog(message: String) -> Void {
@@ -59,8 +91,8 @@ class AAUtil {
         return documentDirectoryPath
     }
     
-    class func deviceToken(from tokenData: Data?) -> String? {
-        var token = "\(String(describing: tokenData))"
+    class func deviceToken(from tokenData: Data) -> String? {
+        var token = tokenData.reduce("", {$0 + String(format: "%02X", $1)})
         //Format token as you need:
         token = token.replacingOccurrences(of: " ", with: "")
         token = token.replacingOccurrences(of: ">", with: "")
