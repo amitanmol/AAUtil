@@ -19,9 +19,16 @@ Make sure you are using the latest version of the library. Check the release-sec
 
 # Usase
 
+AAUtil.showAlert(title: "Title", message: "Test message..", controller: self)
+AAUtil.printLog("Test log..")
 
 # Features
 
 Core features:
 - Show alert dialog.
 - Validate email field.
+- Validate phone number field.
+- Validate password field.
+- Get path of app document directory.
+- Get device token string.
+- Print log in console only in debug mode.
