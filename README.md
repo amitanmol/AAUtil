@@ -19,8 +19,8 @@ Make sure you are using the latest version of the library. Check the release-sec
 
 # Usase
 
-AAUtil.showAlert(title: "Title", message: "Test message..", controller: self)
-AAUtil.printLog("Test log..")
+- AAUtil.showAlert(title: "Title", message: "Test message..", controller: self)
+- AAUtil.printLog("Test log..")
 
 # Features
 
