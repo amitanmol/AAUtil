@@ -21,6 +21,7 @@ Make sure you are using the latest version of the library. Check the release-sec
 
 - AAUtil.showAlert(title: "Title", message: "Test message..", controller: self)
 - AAUtil.printLog("Test log..")
+- AAUtil.month(from: Date())
 
 # Features
 
@@ -31,4 +32,7 @@ Core features:
 - Validate password field.
 - Get path of app document directory.
 - Get device token string.
-- Print log in console only in debug mode.
+- Print log in console, only in debug mode.
+- Get month name from date.
+- Get day from date.
+- Get year from date.
