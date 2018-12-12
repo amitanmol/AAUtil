@@ -54,7 +54,7 @@ class AAUtil {
         return valid
     }
     
-    // password validation // https://stackoverflow.com/questions/27998409/email-phone-validation-in-swift
+    // password validation
     class func isValidPassword(password: String) -> Bool {
         
         var returnValue = true
@@ -65,11 +65,9 @@ class AAUtil {
             let nsString = password as NSString
             let results = regex.matches(in: password, range: NSRange(location: 0, length: nsString.length))
             
-            if results.count == 0
-            {
+            if results.count == 0 {
                 returnValue = false
             }
-            
         }
         catch let error as NSError {
             print("invalid regex: \(error.localizedDescription)")
@@ -98,5 +96,26 @@ class AAUtil {
         token = token.replacingOccurrences(of: ">", with: "")
         token = token.replacingOccurrences(of: "<", with: "")
         return token
+    }
+    
+    class func month(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        let month = dateFormatter.string(from: date)
+        return month
+    }
+    
+    class func day(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        let day = dateFormatter.string(from: date)
+        return day
+    }
+    
+    class func year(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        let year = dateFormatter.string(from: date)
+        return year
     }
 }
